@@ -30,10 +30,10 @@ public class SistemaEscolar {
                 cadastrarTurma();
                     break;
                 case "2":
-                //chamar o metodo que cadastre uma turma
+                listarTurmas();
                     break;
                 case "3":
-                //chamar o metodo que cadastre uma turma
+                consultarTurma();
                     break;
                 default:
                     break;
@@ -78,5 +78,47 @@ public class SistemaEscolar {
         
         }
         e1.setTurma(t);
+    }
+
+    private void listarTurmas(){
+        System.out.println("---------------------");
+        System.out.println("Relatorio da turma");
+        for(int i = 0; i < e1.getQtdeTurmas(); i++){
+            Turma t = e1.getTurmas(i);
+            System.out.println("Numero: " + t.getNroTurma()
+                            + " - Curso: " + t.getNomeCurso()
+                            + " - Ano: " + t.getAnoIngresso()
+                            + " - Qtde de alunos: " + t.getQtdeAlunos());
+
+        }
+    }
+
+    private void consultarTurma() throws Exception{
+        System.out.println("");
+        System.out.println("Consulta de turma:");
+        System.out.println("Numero da turma:");
+        int numTurma = Integer.parseInt(reader.readLine());
+        boolean achou = false;
+
+        for(int i = 0; i < e1.getQtdeTurmas(); i++){
+            Turma t = e1.getTurmas(i);
+            if (t.getNroTurma() == numTurma) {
+                System.out.println("ALUNOS DA TURMA");
+                int posAluno = 0;
+                while (t.getAluno(posAluno) != null) {
+                    String linha = "Nome:" + t.getAluno(posAluno).getNome();
+                    linha += " - Matricula: " + t.getAluno(posAluno).getMatricula();
+                    linha += " - Media: " + t.getAluno(posAluno).calcularMedia();
+                    System.out.println(linha);
+                    posAluno++;
+                }
+                achou = true;
+                break;
+            }
+        }
+        if (!achou) {
+            System.out.println("Turma nao encontrada!");
+            
+        }
     }
 }
