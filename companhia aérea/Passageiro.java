@@ -3,7 +3,7 @@ public class Passageiro {
    private String nome;
    private String nascimento;
    private String passaporte;
-   private String nascionalidade;
+   private String nacionalidade;
    private String email;
    private String fone;
 
@@ -28,11 +28,11 @@ public class Passageiro {
     this.passaporte = passaporte;
    }
 
-   public String getNascionalidade() {
-    return nascionalidade;
+   public String getNacionalidade() {
+    return nacionalidade;
    }
-   public void setNascionalidade(String nascionalidade) {
-    this.nascionalidade = nascionalidade;
+   public void setNacionalidade(String nacionalidade) {
+    this.nacionalidade = nacionalidade; 
    }
 
    public String getEmail() {
