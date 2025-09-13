@@ -21,8 +21,8 @@ public class Voo {
     public int getQtdePassageiro(){
         return qtdePassageiro;
     }
-    public void setQtdePassageiro(int qtdePassageiro){
-        this.qtdePassageiro = qtdePassageiro;
+    public void setQtdePassageiro(int qtdePassageiros){
+        this.qtdePassageiro = qtdePassageiros;
     }
 
     public String getOrigem(){
@@ -32,10 +32,10 @@ public class Voo {
         this.origem = origem;
     }
 
-    public int getDestino(){
+    public String getDestino(){
         return destino;
     }
-    public void setDestino(int destino){
+    public void setDestino(String destino){
         this.destino = destino;
     }
 
@@ -46,13 +46,13 @@ public class Voo {
         this.data = data;
     }
 
-    public Aluno getPassageiro(int pos) {
+    public Passageiro getPassageiro(int pos) {
         return vetPassageiros[pos];
     }
-    public void setPassageiro(Aluno a) { //Adiciona um novo aluno no vetor
-        if(this.qtdePassageiros < 50){
-            this.vetPassageiros[qtdePassageiros] = a;
-            qtdePassageiros++;
+    public void setPassageiro(Passageiro p) { //Adiciona um novo aluno no vetor
+        if(this.qtdePassageiro < 50){
+            this.vetPassageiros[qtdePassageiro] = p;
+            qtdePassageiro++;
         }
     }   
 

@@ -1,7 +1,6 @@
 public class Companhia {
     
     private String nome;
-    private String fone;
     private int qtdeVoos; 
     private Voo [] vetVoos;
     
@@ -14,13 +13,6 @@ public class Companhia {
     }
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getFone() {
-        return fone;
-    }
-    public void setFone(String fone) {
-        this.fone = fone;
     }
 
     public int getQtdeVoos() {
