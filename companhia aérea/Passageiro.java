@@ -21,10 +21,10 @@ public class Passageiro {
     this.nascimento = nascimento;
    }
 
-   public String getpassaporte() {
+   public String getPassaporte() {
     return passaporte;
    }
-   public void setpassaporte(String passaporte) {
+   public void setPassaporte(String passaporte) {
     this.passaporte = passaporte;
    }
 

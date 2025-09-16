@@ -49,7 +49,7 @@ public class Voo {
     public Passageiro getPassageiro(int pos) {
         return vetPassageiros[pos];
     }
-    public void setPassageiro(Passageiro p) { //Adiciona um novo aluno no vetor
+    public void setPassageiro(Passageiro p) { //Adiciona um novo passageiro no vetor
         if(this.qtdePassageiro < 50){
             this.vetPassageiros[qtdePassageiro] = p;
             qtdePassageiro++;

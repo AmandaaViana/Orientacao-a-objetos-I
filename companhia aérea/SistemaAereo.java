@@ -31,7 +31,7 @@ public class SistemaAereo {
                     listar();
                     break;
                 case "3":
-                
+                    consultar();
                     break;
                 default:
                     break;
@@ -42,60 +42,94 @@ public class SistemaAereo {
     //cadastrar voo
     private void cadastrar() throws Exception{
         Voo v = new Voo();
-        System.out.println("-----Cadastro de Voo-----");
-        System.out.println("Numero do Voo");
+        System.out.println("-----CADASTRO DOS VOOS-----");
+        System.out.println("Informe o numero do Voo:");
         v.setNumVoo(Integer.parseInt(reader.readLine()));
-
-        System.out.println("Informe a origem do voo");
+        System.out.println("Informe a origem do voo:");
         v.setOrigem(reader.readLine());
-        System.out.println("Informe o destino do voo");
+        System.out.println("Informe o destino do voo:");
         v.setDestino(reader.readLine());
-        System.out.println("Informe a data do voo");
+        System.out.println("Informe a data do voo:");
         v.setData(reader.readLine());
 
-        System.out.println("-------Passageiros-------");
+        System.out.println("====PASSAGEIROS====");
         for(int i = 0; i < 50; i++){
-            System.out.println("Nome do passageiro");
+            System.out.println("Nome do passageiro:");
             String nome = reader.readLine();
             if (nome.equals("")) {
                 break;
             }
             Passageiro p = new Passageiro();
             p.setNome(nome);
+
             System.out.println("Informe a data de nascimento:");
             p.setNascimento(reader.readLine());
             System.out.println("Informe a nacionalidade:");
             p.setNacionalidade(reader.readLine());
             System.out.println("Informe o passaporte:");
-            p.setpassaporte(reader.readLine());
+            p.setPassaporte(reader.readLine());
             System.out.println("Informe o e-mail:");
             p.setEmail(reader.readLine());
             System.out.println("Informe o telefone:");
             p.setFone(reader.readLine());
+
+            v.setPassageiro(p);
         }
         comp.setVoo(v);
     }
     //listar voos
     private void listar() {
-        System.out.println("-----Lista dos voos-----");
-
-        if (qtdeVoo == 0 ){
-            System.out.println("Nenhum voo disponivel");
-            return;
-        }
+        System.out.println("\n-----LISTA DOS VOOS-----");
         for(int i = 0; i < comp.getQtdeVoos(); i++){
             Voo v = comp.getVoos(i);
-            System.out.println("Origem:" + v.getOrigem() + 
-                               "Destino:" + v.getDestino() + 
-                               "Data:" + v.getData());
+            System.out.println("\nOrigem:" + v.getOrigem() + 
+                               "\nDestino:" + v.getDestino() + 
+                               "\nData:" + v.getData());
         }
     }
     //consultar o voo
-    private void consultar(){
-        System.out.println("Consultar");
-        System.out.println("Qual voo deseja ver:");
+    private void consultar() throws Exception {
+    System.out.println("\n----- CONSULTA DE VOO -----");
+    System.out.println("Numero do voo:");
+    int numVoo = Integer.parseInt(reader.readLine());
+    boolean achou = false;
 
+    for(int i = 0; i < comp.getQtdeVoos(); i++){
+        Voo v = comp.getVoos(i);
+        if (v.getNumVoo() == numVoo) {
+            System.out.println("\n=== DADOS DO VOO ===");
+            System.out.println("Numero: " + v.getNumVoo());
+            System.out.println("Origem: " + v.getOrigem());
+            System.out.println("Destino: " + v.getDestino());
+            System.out.println("Data: " + v.getData());
+            
+            System.out.println("\n=== PASSAGEIROS ===");
+            if (v.getQtdePassageiro() == 0) {
+                System.out.println("Nenhum passageiro cadastrado.");
+            } else {
+                for (int j = 0; j < v.getQtdePassageiro(); j++) {
+                    Passageiro p = v.getPassageiro(j);
+                    if (p != null) {
+                        String linha = "Nome: " + p.getNome();
+                        linha += " - Passaporte: " + p.getPassaporte();
+                        linha += " - Nacionalidade: " + p.getNacionalidade();
+                        System.out.println(linha);
+                    }
+                }
+            }
+            
+            // assentoslivres 
+            int assentosLivres = 50 - v.getQtdePassageiro();
+            System.out.println("\nAssentos livres: " + assentosLivres + "/50");
+            
+            achou = true;
+            break;
+        }
     }
     
+    if (!achou) {
+        System.out.println("Voo não encontrado!");
+    }
+}
 }
 
