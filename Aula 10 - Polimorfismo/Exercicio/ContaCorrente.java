@@ -14,7 +14,7 @@ public class ContaCorrente {
         boolean resultado = false;
         double taxa = 0.005d;
         if (this.saldo >= (valor + (valor * taxa))) {
-            this.saldo
+            this.saldo = this.saldo - valor - (valor * taxa);
             resultado = true;
         }
         return resultado;
