@@ -1,47 +1,44 @@
+
 public class ContaCorrente {
-    
     private String numeroConta;
     private String nomeCliente;
     private double saldo;
 
-    //depositar 
+    public String getNumeroConta(){
+        return this.numeroConta;
+    }
+
+    public void setNumeroConta(String nc){
+        this.numeroConta = nc;
+    }
+
+    public String getNomeCliente(){
+        return this.nomeCliente;
+    }
+
+    public void setNomeCliente(String cli){
+        this.nomeCliente = cli;
+    }    
+
+    public double getSaldo(){
+        return this.saldo;
+    }
+
+    public void setSaldo(double s){
+        this.saldo = s;
+    } 
+
     public void depositar(double valor){
         this.saldo += valor;
     }
-    
-    //sacar
+
     public boolean sacar(double valor){
         boolean resultado = false;
         double taxa = 0.005d;
-        if (this.saldo >= (valor + (valor * taxa))) {
+        if(this.saldo >= (valor + (valor * taxa))){
             this.saldo = this.saldo - valor - (valor * taxa);
             resultado = true;
         }
         return resultado;
     }
-
-    public String getNumeroConta() {
-        return this.numeroConta;
-    }
-    public void setNumeroConta(String numeroConta) {
-        this.numeroConta = numeroConta;
-    }
-
-    public String getNomeCliente() {
-        return this.nomeCliente;
-    }
-    public void setNomeCliente(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
-    }
-
-    public double getSaldo() {
-        return this.saldo;
-    }
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
-    }
-
-    
-
-    
 }
