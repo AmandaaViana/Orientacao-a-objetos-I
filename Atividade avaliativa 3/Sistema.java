@@ -41,7 +41,7 @@ public class Sistema {
 
             switch (opcao) {
                 case "1":
-                    System.out.println("Digite o nome do arquivo de dados de entrada:");
+                    System.out.println("\nDigite o nome do arquivo de dados de entrada: ");
                     String arqDados = usuario.readLine();
                     t.importarDados(arqDados);
                     break;
@@ -81,14 +81,13 @@ public class Sistema {
         
         for (int i = 0; i < t.getQtdEncomendasE(); i++) {
             EncomendaE encomenda = t.getEncomendaE(i);
-            if (encomenda != null) {
+            
                 double frete = encomenda.calcularFrete();
                 System.out.println(encomenda.getNumPedido() + ", " + 
                                 encomenda.getDataPostagem() + ", " +
                                 encomenda.getPrazoEntrega() + ", " +
                                 String.format("%.2f", encomenda.getPeso()) + ", " +
                                 encomenda.getFone() + ", R$ " + String.format("%.2f", frete));
-            }
         }
     }
 }

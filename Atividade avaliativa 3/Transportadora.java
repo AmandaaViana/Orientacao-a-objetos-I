@@ -20,6 +20,7 @@ public class Transportadora implements ImportacaoArquivos {
     }
 
     //métodos
+    @Override
     public boolean carregarConfiguracoes(String arqConfig) {
         try (BufferedReader leitor = new BufferedReader(new FileReader(arqConfig))) {
             String linha = leitor.readLine(); // Pula cabeçalho
@@ -43,6 +44,7 @@ public class Transportadora implements ImportacaoArquivos {
         }
     }
 
+    @Override
     public void importarDados(String arqDadosEntrada) {
         try (BufferedReader leitor = new BufferedReader(new FileReader(arqDadosEntrada))) {
             leitor.readLine(); // Pula cabeçalho

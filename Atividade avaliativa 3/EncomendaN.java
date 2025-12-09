@@ -17,6 +17,7 @@ public class EncomendaN {
         return this.peso * precoKg;
     }
 
+    @Override
     public String toString(){
         return String.format("Nro Pedido: %s, Peso: %.2f Kg, Valor do Frete: R$ %.2f", 
                              numPedido, peso, calcularFrete());
