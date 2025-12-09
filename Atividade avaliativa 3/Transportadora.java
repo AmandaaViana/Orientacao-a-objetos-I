@@ -3,7 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Transportadora implements ImportacaoArquivos {
-    private static int VETOR = 1000;
+    private static final int VETOR = 1000;
 
     //atributos
     private EncomendaN[] vetorEncomendas;
@@ -20,10 +20,8 @@ public class Transportadora implements ImportacaoArquivos {
     }
 
     //métodos
-    @Override
     public boolean carregarConfiguracoes(String arqConfig) {
-        try {
-            BufferedReader leitor = new BufferedReader(new FileReader(arqConfig));
+        try (BufferedReader leitor = new BufferedReader(new FileReader(arqConfig))) {
             String linha = leitor.readLine(); // Pula cabeçalho
 
             while ((linha = leitor.readLine()) != null) {
@@ -37,7 +35,6 @@ public class Transportadora implements ImportacaoArquivos {
                     EncomendaE.setPrecoKgE(preco);
                 }
             }
-            leitor.close();
             System.out.println("Configurações carregadas!");
             return true;
         } catch (IOException e) {
@@ -46,10 +43,8 @@ public class Transportadora implements ImportacaoArquivos {
         }
     }
 
-    @Override
     public void importarDados(String arqDadosEntrada) {
-        try {
-            BufferedReader leitor = new BufferedReader(new FileReader(arqDadosEntrada));
+        try (BufferedReader leitor = new BufferedReader(new FileReader(arqDadosEntrada))) {
             leitor.readLine(); // Pula cabeçalho
 
             String linha;
@@ -57,66 +52,59 @@ public class Transportadora implements ImportacaoArquivos {
                 String[] parte = linha.split(";");
                 String tipo = parte[2]; // Tipo de encomenda: EN ou EE
 
-                    if (tipo.equals("EN") && qtdEncomendasN < VETOR) {
-                            // Cria encomenda normal
-                            String numPedido = parte[0].trim();
-                            String data = parte[1].trim();
-                            double peso = Double.parseDouble(parte[4].trim());
+                if (tipo.equals("EN") && qtdEncomendasN < VETOR) {
+                    // Cria encomenda normal
+                    String numPedido = parte[0].trim();
+                    String data = parte[1].trim();
+                    double peso = Double.parseDouble(parte[4].trim());
 
-                            EncomendaN encomenda = new EncomendaN(numPedido, data, peso);
-                            vetorEncomendas[qtdEncomendasN] = encomenda;
-                            qtdEncomendasN++;
+                    EncomendaN encomenda = new EncomendaN(numPedido, data, peso);
+                    vetorEncomendas[qtdEncomendasN] = encomenda;
+                    qtdEncomendasN++;
 
-                        } else if (tipo.equals("EE") && qtdEncomendasE < VETOR) {
-                            // Cria encomenda expressa
-                            String numPedido = parte[0].trim();
-                            String data = parte[1].trim();
-                            double peso = Double.parseDouble(parte[4].trim());
-                            int prazo = Integer.parseInt(parte[3].trim());
-                            String fone = parte[5].trim();
-                            
-                            EncomendaE encomenda = new EncomendaE(numPedido, data, peso, prazo, fone);
-                            vetorEncomendasE[qtdEncomendasE] = encomenda;
-                            qtdEncomendasE++;
-                        }
+                } else if (tipo.equals("EE") && qtdEncomendasE < VETOR) {
+                    // Cria encomenda expressa
+                    String numPedido = parte[0].trim();
+                    String data = parte[1].trim();
+                    double peso = Double.parseDouble(parte[4].trim());
+                    int prazo = Integer.parseInt(parte[3].trim());
+                    String fone = parte[5].trim();
+
+                    EncomendaE encomenda = new EncomendaE(numPedido, data, peso, prazo, fone);
+                    vetorEncomendasE[qtdEncomendasE] = encomenda;
+                    qtdEncomendasE++;
+                }
             }
-            leitor.close();
             System.out.println("Dados importados com sucesso!");
 
         } catch (Exception e) {
             System.out.println("Erro ao importar dados: " + e.getMessage());
         }
     }
+
+    // getters e setters: Encomenda Normal
+    public EncomendaN getEncomendaN(int i) {
+        return vetorEncomendas[i];
+    }
+    public void setEncomendaN(EncomendaN EN) {
+        if (qtdEncomendasN < VETOR) {
+            vetorEncomendas[qtdEncomendasN] = EN;
+            qtdEncomendasN++;
+        }
+    }
+
+     // getters e setters: Encomenda Expressa
+    public EncomendaE getEncomendaE(int i) {
+        return vetorEncomendasE[i];
+    }
+    public void setEncomendaE(EncomendaE EE) {
+        if (qtdEncomendasE < VETOR) {
+            vetorEncomendasE[qtdEncomendasE] = EE;
+            qtdEncomendasE++;
+        }
+    }
     
-    // getters e setters
-    public EncomendaN getEncomendaN(int indice) {
-        if (indice >= 0 && indice < getQtdEncomendasN()) {
-            return vetorEncomendas[indice];
-        }
-        return null;
-    }
-
-    public EncomendaE getEncomendaE(int indice) {
-        if (indice >= 0 && indice < getQtdEncomendasE()) {
-            return vetorEncomendasE[indice];
-        }
-        return null;
-    }
-
-    public EncomendaN[] getVetorEncomendas() {
-        return vetorEncomendas;
-    }
-    public void setVetorEncomendas(EncomendaN[] vetorEncomendas) {
-        this.vetorEncomendas = vetorEncomendas;
-    }
-
-    public EncomendaE[] getVetorEncomendasE() {
-        return vetorEncomendasE;
-    }
-    public void setVetorEncomendasE(EncomendaE[] vetorEncomendasE) {
-        this.vetorEncomendasE = vetorEncomendasE;
-    }
-
+    // getters e setters: quantidade encomenda normal
     public int getQtdEncomendasN() {
         return qtdEncomendasN;
     }
@@ -124,6 +112,7 @@ public class Transportadora implements ImportacaoArquivos {
         this.qtdEncomendasN = qtdEncomendasN;
     }
 
+    // getters e setters: quantidade encomenda expressa
     public int getQtdEncomendasE() {
         return qtdEncomendasE;
     }

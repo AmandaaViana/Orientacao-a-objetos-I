@@ -3,8 +3,8 @@ import java.io.InputStreamReader;
 
 public class Sistema {
 
-    private BufferedReader usuario = new BufferedReader(new InputStreamReader(System.in));
-    private Transportadora t = new Transportadora();
+    BufferedReader usuario = new BufferedReader(new InputStreamReader(System.in));
+    Transportadora t = new Transportadora();
 
     public static void main(String[] args) throws Exception {
         
@@ -63,34 +63,20 @@ public class Sistema {
 
     public void exibirEN() {
         System.out.println("\n=== ENCOMENDAS NORMAIS ===");
-        if (t.getQtdEncomendas() == 0) {
-            System.out.println("Nenhuma encomenda normal cadastrada.");
-            return;
-        }
-            
         System.out.println("Nro pedido | Data | Peso | Valor do Frete");
         
         for (int i = 0; i < t.getQtdEncomendasN(); i++) {
             EncomendaN encomenda = t.getEncomendaN(i);
-
-            if (encomenda != null) {
-                double frete = encomenda.calcularFrete();
-
-                System.out.println(encomenda.getNumPedido() + ", " +
-                                    encomenda.getDataPostagem() + ", " + 
-                                    encomenda.getPeso() + ", R$ " + String.format("%.2f", frete));
+            double frete = encomenda.calcularFrete();
+            
+            System.out.println(encomenda.getNumPedido() + ", " +
+                               encomenda.getDataPostagem() + ", " + 
+                               String.format("%.2f", encomenda.getPeso()) + ", R$ " + String.format("%.2f", frete));
             }
         }
-    }
-
+    
     public void exibirEE() {
         System.out.println("\n=== ENCOMENDAS EXPRESSAS ===");
-        
-        if (t.getQtdEncomendasE() == 0) {
-            System.out.println("Nenhuma encomenda expressa cadastrada.");
-            return;
-        }
-        
         System.out.println("Nro pedido | Data | Prazo | Peso | Fone | Frete");
         
         for (int i = 0; i < t.getQtdEncomendasE(); i++) {
@@ -100,8 +86,8 @@ public class Sistema {
                 System.out.println(encomenda.getNumPedido() + ", " + 
                                 encomenda.getDataPostagem() + ", " +
                                 encomenda.getPrazoEntrega() + ", " +
-                                encomenda.getFone() + ", R$ " + String.format("%.2f", frete) + ", " +
-                                encomenda.getPeso());
+                                String.format("%.2f", encomenda.getPeso()) + ", " +
+                                encomenda.getFone() + ", R$ " + String.format("%.2f", frete));
             }
         }
     }
